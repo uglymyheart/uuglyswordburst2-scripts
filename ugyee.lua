@@ -1281,6 +1281,14 @@ local dealDamage = (function()
 end)()
 
 local attack = function(target)
+
+    if Toggles.InstaKill.Value then
+        while not isDead(target) do
+            dealDamage(target)
+            task.wait()
+        end
+        return
+    end
     if isDead(target) then return end
 
     if Toggles.UseSkillPreemptively.Value or target.Entity.Health:FindFirstChild(LocalPlayer.Name) then
